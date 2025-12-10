@@ -1,5 +1,5 @@
 function Card({ data }) {
-  const authorSrc = data?.photo
+  const authorSrc = data.photo
     ? { backgroundImage: `url(${data.photo})` }
     : undefined;
 
