@@ -20,16 +20,16 @@
   color: var(--color-black);
   font: var(--font-card-text);
 
-  border-radius: 20px;
+  border-radius: 10px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-style: solid;
   border-width: 1px;
-  border-image-source: linear-gradient(
-    to bottom,
-    var(--color-white) 0%,
-    rgba(0, 0, 0, 0)
-  );
+  // border-image-source: linear-gradient(
+  //   to bottom,
+  //   var(--color-white) 0%,
+  //   rgba(0, 0, 0, 0)
+  // );
   border-image-slice: 1;
   background-image: linear-gradient(
       to bottom,
@@ -39,6 +39,16 @@
     linear-gradient(to bottom, var(--color-white) 0%, rgba(0, 0, 0, 0));
   background-origin: border-box;
   background-clip: content-box, border-box;
+  margin: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .card {
+    border-radius: 10;
+    max-width: 900px;
+    margin: 2rem auto;
+    grid-template-columns: 35% 65%;
+  }
 }
 
 .card .card__projectTitle {

@@ -1,4 +1,4 @@
-const Card = ({ data }) => {
+function Card({ data }) {
   const authorSrc = data?.photo
     ? { backgroundImage: `url(${data.photo})` }
     : undefined;
@@ -14,10 +14,8 @@ const Card = ({ data }) => {
           className="card__authorPhoto"
           style={authorSrc}
           aria-label={data.name || "Imagen de la autora"}
-        >
-          {/* background por defecto queda en CSS si no hay data.photo */}
-        </div>
-        
+        ></div>
+
         <p className="card__job">
           {data.job === "" ? "Monologuista" : data.job}
         </p>
@@ -65,6 +63,6 @@ const Card = ({ data }) => {
       </div>
     </article>
   );
-};
+}
 
 export default Card;

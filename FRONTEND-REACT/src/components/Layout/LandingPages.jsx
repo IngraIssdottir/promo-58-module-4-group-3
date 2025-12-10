@@ -1,7 +1,11 @@
+import { useState } from "react";
 import Hero from "../Layout/Hero.jsx";
+import Card from "../Create/Card.jsx";
 import { Link } from "react-router";
 
 function LandingPages() {
+  const [projects, setProjects] = useState([{}, {}, {}, {}]);
+
   return (
     <Hero>
       <>
@@ -9,7 +13,11 @@ function LandingPages() {
           Nuevo Proyecto
         </Link>
       </>
+      {projects.map((project) => (
+        <Card key={project.id} data={project} />
+      ))}
     </Hero>
   );
 }
+
 export default LandingPages;
