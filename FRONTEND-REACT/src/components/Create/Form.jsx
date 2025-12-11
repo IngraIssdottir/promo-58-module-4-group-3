@@ -3,7 +3,7 @@ import GetAvatar from "./GetAvatar";
 import InputGroupText from "./InputGroupText";
 import { useEffect } from "react";
 
-function Form({ changeData, data }) {
+function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
   function handleData(ev) {
     ev.preventDefault();
     const property = ev.target.id;
@@ -11,8 +11,13 @@ function Form({ changeData, data }) {
     changeData(property, value);
   }
   useEffect(() => {
-    localStorage.setItem("formData", JSON.stringify(data));
-  }, [data]);
+    try {
+      localStorage.setItem("formData", JSON.stringify(data));
+    } catch (error) {
+      console.warn('No se pudo guardar en localStorage:', error.message);      
+    }
+  }, [data]); 
+
 
   return (
     <form className="addForm" onChange={handleData}>
@@ -76,7 +81,7 @@ function Form({ changeData, data }) {
           name="autor"
           id="autor"
           placeholder="Nombre"
-          value={data.author}
+          value={data.autor}
         />
         <InputGroupText
           onChange={handleData}
@@ -98,9 +103,16 @@ function Form({ changeData, data }) {
           text="Subir foto de la autora"
           idImages="photo"
         />
+        </fieldset>
 
-        <button className="button--large">Guardar proyecto</button>
-      </fieldset>
+        
+
+      <button className="button--large" type="button" onClick={handleClick}>Guardar proyecto</button>
+        <p>{errorMsg}</p>
+      {cardURL !== "" && (
+        <a href={cardURL}>Pincha para ver tu tarjeta</a>
+      )}
+     
     </form>
   );
 }

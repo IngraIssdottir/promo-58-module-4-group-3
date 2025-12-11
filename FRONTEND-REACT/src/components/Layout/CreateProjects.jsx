@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hero from "../Layout/Hero.jsx";
 import Preview from "../Create/Preview.jsx";
 import Form from "../Create/Form.jsx";
 import { Link } from "react-router";
+
+
 
 const initalData = {
   name: "",
@@ -18,9 +20,15 @@ const initalData = {
 };
 
 function CreateProjects() {
+  const [cardURL, setCardURL] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const [data, setData] = useState({
     ...(JSON.parse(localStorage.getItem("formData")) || initalData),
   });
+  useEffect(() => {
+    // Este código se lanza cuando cambie data
+    localStorage.setItem("form-backup", JSON.stringify(data));
+  }, [data]);
 
   function changeData(property, value) {
     setData({
@@ -29,6 +37,33 @@ function CreateProjects() {
     });
     console.log([property], value);
   }
+
+  const handleClick = () => {
+    fetch("https://dev.adalab.es/api/projectCard", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((responseData) => {
+        if (responseData.success) {
+          const cardURL = responseData.cardURL;
+          setCardURL(cardURL);
+          setErrorMsg("");
+          console.log(cardURL);
+        } else {
+          setErrorMsg(responseData.error);
+          setCardURL("");          
+        }
+      })
+      .catch((error) => {
+        setErrorMsg("Error al guardar el proyecto: " + error.message);
+        setCardURL("");
+      });
+  };
+
   return (
     <main className="main">
       <Hero>
@@ -41,7 +76,8 @@ function CreateProjects() {
 
       <Preview data={data} />
 
-      <Form changeData={changeData} data={data} />
+      <Form changeData={changeData} data={data} cardURL={cardURL} errorMsg={errorMsg} handleClick={handleClick}/>
+
     </main>
   );
 }

@@ -1,5 +1,5 @@
 import "../../styles/Hero.scss";
-import { Link } from "react-router";
+
 function Hero({ children }) {
   return (
     <section className="hero">
