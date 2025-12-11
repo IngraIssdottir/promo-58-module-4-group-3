@@ -22,12 +22,14 @@ const initalData = {
 function CreateProjects() {
   const [cardURL, setCardURL] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [data, setData] = useState({
-    ...(JSON.parse(localStorage.getItem("formData")) || initalData),
-  });
+  const [data, setData] = useState(initalData);
+ 
   useEffect(() => {
-    // Este código se lanza cuando cambie data
-    localStorage.setItem("form-backup", JSON.stringify(data));
+    if (data.name || data.slogan || data.desc) {
+      try {
+        localStorage.setItem("formData", JSON.stringify(data));
+      } catch {}
+    }
   }, [data]);
 
   function changeData(property, value) {
@@ -66,20 +68,13 @@ function CreateProjects() {
 
   return (
     <main className="main">
-      <Hero>
-        <>
-          <Link className="button--link" to="/">
-            Volver a la página principal
-          </Link>
-        </>
-      </Hero>
-
+      <Hero></Hero>
       <Preview data={data} />
-
-      <Form changeData={changeData} data={data} cardURL={cardURL} errorMsg={errorMsg} handleClick={handleClick}/>
-
-    </main>
+      <Form changeData={changeData} data={data} cardURL={cardURL} errorMsg={errorMsg} handleClick={handleClick}/>     
+      
+    </main>  
   );
+  
 }
 
 export default CreateProjects;

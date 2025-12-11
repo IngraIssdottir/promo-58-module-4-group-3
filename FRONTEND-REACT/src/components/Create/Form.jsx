@@ -4,12 +4,21 @@ import InputGroupText from "./InputGroupText";
 import { useEffect } from "react";
 
 function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
+
+
+useEffect(() => { 
+  localStorage.removeItem("formData");
+}, []);
+
+
+
   function handleData(ev) {
     ev.preventDefault();
     const property = ev.target.id;
     const value = ev.target.value;
     changeData(property, value);
   }
+ 
   useEffect(() => {
     try {
       localStorage.setItem("formData", JSON.stringify(data));
