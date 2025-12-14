@@ -1,10 +1,14 @@
-import { useState } from "react";
+//import { useState } from "react";
 import Hero from "../Layout/Hero.jsx";
 import Card from "../Create/Card.jsx";
 import { Link } from "react-router";
 
-function LandingPages() {
-  const [projects, setProjects] = useState([{}, {}, {}, {}]);
+
+//le pasamos el estado por props
+function LandingPages({projectsLanding}) {
+  //esta variable, y el useState de arriba en principio ya no son necesarios,
+  //pero los dejo por si acaso.
+  //const [projects, setProjects] = useState([{}, {}, {}, {}]);
 
   return (
     <Hero>
@@ -13,7 +17,8 @@ function LandingPages() {
           Nuevo Proyecto
         </Link>
       </>
-      {projects.map((project) => (
+      {/*hacemos el map con el prop que le acabamos de pasar en la tarjeta*/}
+      {projectsLanding.map((project) => (
         <Card key={project.id} data={project} />
       ))}
     </Hero>

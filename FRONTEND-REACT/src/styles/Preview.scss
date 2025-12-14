@@ -9,7 +9,7 @@
 
 .preview .card {
   margin-inline: 20px;
-
+  
   transform: translateY(-45px);
 }
 
@@ -20,6 +20,7 @@
   color: var(--color-black);
   font: var(--font-card-text);
 
+ 
   border-radius: 10px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -95,8 +96,8 @@
 }
 
 .card .card__authorPhoto {
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background-image: url("../images/avatar.webp");
   background-position: center;
