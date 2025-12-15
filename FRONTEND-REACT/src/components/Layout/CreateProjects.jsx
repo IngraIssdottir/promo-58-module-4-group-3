@@ -4,9 +4,7 @@ import Preview from "../Create/Preview.jsx";
 import Form from "../Create/Form.jsx";
 import { Link } from "react-router";
 
-
-
-const initalData = {
+const initialData = {
   name: "",
   slogan: "",
   technologies: "",
@@ -20,26 +18,32 @@ const initalData = {
 };
 
 function CreateProjects() {
+  // const [data, setData] = useState(initialData); // Estábamos sobreescribiendo localStorage
+// El useState inicial siempre gana y por eso, al refrescar, localStorage llegaba tarde. 
+// La solución está en crear la función data, setData que, al refrescar, nos devuelve lo que la usuaria ha escrito. 
+
+
+  const [data, setData] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("formData")) || initialData;
+    } catch {
+      return initialData;
+    }
+  });
 
   const [cardURL, setCardURL] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [data, setData] = useState(initalData);
- 
-  useEffect(() => {
-  const savedData = localStorage.getItem("formData");
-  if (savedData) {
-    setData(JSON.parse(savedData));
-  }
-}, []);
+  
 
-
+   useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(data));
+  }, [data]);
 
   function changeData(property, value) {
     setData({
       ...data,
       [property]: value,
     });
-    console.log([property], value);
   }
 
   const handleClick = () => {
@@ -59,7 +63,7 @@ function CreateProjects() {
           console.log(cardURL);
         } else {
           setErrorMsg(responseData.error);
-          setCardURL("");          
+          setCardURL("");
         }
       })
       .catch((error) => {
@@ -72,11 +76,18 @@ function CreateProjects() {
     <main className="main">
       <Hero></Hero>
       <Preview data={data} />
-      <Form changeData={changeData} data={data} cardURL={cardURL} errorMsg={errorMsg} handleClick={handleClick}/>     
-      
-    </main>  
+      <Form
+        changeData={changeData}
+        data={data}
+        cardURL={cardURL}
+        errorMsg={errorMsg}
+        handleClick={handleClick}
+      />
+      <Link to="/" className="back-link">
+        ← Volver al inicio
+      </Link>
+    </main>
   );
-  
 }
 
 export default CreateProjects;

@@ -1,27 +1,16 @@
 import "../../styles/Form.scss";
 import GetAvatar from "./GetAvatar";
 import InputGroupText from "./InputGroupText";
-import { useEffect } from "react";
 
 function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
-
-
-
-
-
-
   function handleData(ev) {
-    ev.preventDefault();
     const property = ev.target.id;
     const value = ev.target.value;
     changeData(property, value);
   }
- 
-  
-
 
   return (
-    <form className="addForm" onChange={handleData}>
+    <form className="addForm">
       <h2 className="title">Información</h2>
       <fieldset className="addForm__group">
         <legend className="addForm__title">Cuéntanos sobre el proyecto</legend>
@@ -30,14 +19,14 @@ function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
           name="name"
           id="name"
           placeholder="Nombre del proyecto"
-          value={data.name}
+          value={data.name || ""}
         />
         <InputGroupText
           onChange={handleData}
           name="slogan"
           id="slogan"
           placeholder="Slogan"
-          value={data.slogan}
+          value={data.slogan || ""}
         />
         <div className="addForm__2col">
           <InputGroupText
@@ -46,7 +35,7 @@ function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
             name="repo"
             id="repo"
             placeholder="Repositorio"
-            value={data.repo}
+            value={data.repo || ""}
           />
           <InputGroupText
             onChange={handleData}
@@ -54,7 +43,7 @@ function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
             name="demo"
             id="demo"
             placeholder="Demo"
-            value={data.demo}
+            value={data.demo || ""}
           />
         </div>
         <InputGroupText
@@ -62,17 +51,16 @@ function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
           name="technologies"
           id="technologies"
           placeholder="Tecnologías"
-          value={data.technologies}
+          value={data.technologies || ""}
         />
         <textarea
           onChange={handleData}
           className="addForm__input"
-          type="text"
           name="desc"
           id="desc"
           placeholder="Descripción"
           rows="5"
-          value={data.desc}
+          value={data.desc || ""}
         ></textarea>
       </fieldset>
 
@@ -83,14 +71,14 @@ function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
           name="autor"
           id="autor"
           placeholder="Nombre"
-          value={data.autor}
+          value={data.autor || ""}
         />
         <InputGroupText
           onChange={handleData}
           name="job"
           id="job"
           placeholder="Trabajo"
-          value={data.job}
+          value={data.job || ""}
         />
       </fieldset>
 
@@ -105,16 +93,13 @@ function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
           text="Subir foto de la autora"
           idImages="photo"
         />
-        </fieldset>
+      </fieldset>
 
-        
-
-      <button className="button--large" type="button" onClick={handleClick}>Guardar proyecto</button>
-        <p>{errorMsg}</p>
-      {cardURL !== "" && (
-        <a href={cardURL}>Pincha para ver tu tarjeta</a>
-      )}
-     
+      <button className="button--large" type="button" onClick={handleClick}>
+        Guardar proyecto
+      </button>
+      <p>{errorMsg}</p>
+      {cardURL !== "" && <a href={cardURL}>Pincha para ver tu tarjeta</a>}
     </form>
   );
 }
