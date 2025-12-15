@@ -6,9 +6,7 @@ import { useEffect } from "react";
 function Form({ changeData, data, handleClick, cardURL, errorMsg }) {
 
 
-useEffect(() => { 
-  localStorage.removeItem("formData");
-}, []);
+
 
 
 
@@ -19,13 +17,7 @@ useEffect(() => {
     changeData(property, value);
   }
  
-  useEffect(() => {
-    try {
-      localStorage.setItem("formData", JSON.stringify(data));
-    } catch (error) {
-      console.warn('No se pudo guardar en localStorage:', error.message);      
-    }
-  }, [data]); 
+  
 
 
   return (
@@ -62,6 +54,7 @@ useEffect(() => {
             name="demo"
             id="demo"
             placeholder="Demo"
+            value={data.demo}
           />
         </div>
         <InputGroupText

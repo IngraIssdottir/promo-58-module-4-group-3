@@ -26,12 +26,13 @@ function CreateProjects() {
   const [data, setData] = useState(initalData);
  
   useEffect(() => {
-    if (data.name || data.slogan || data.desc) {
-      try {
-        localStorage.setItem("formData", JSON.stringify(data));
-      } catch {}
-    }
-  }, [data]);
+  const savedData = localStorage.getItem("formData");
+  if (savedData) {
+    setData(JSON.parse(savedData));
+  }
+}, []);
+
+
 
   function changeData(property, value) {
     setData({

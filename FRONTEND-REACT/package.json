@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-     "deploy": "rm -rf docs ; npm run build ; mv dist docs ; git add docs ; git commit -m 'New deployment' ; git push"
+    "deploy": "rm -rf docs ; npm run build ; mv dist docs ; git add docs ; git commit -m 'New deployment' ; git push"
 
   },
   "dependencies": {
