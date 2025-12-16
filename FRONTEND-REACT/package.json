@@ -1,6 +1,5 @@
 {
   "name": "my-react-app",
-  "homepage": "./",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -29,5 +28,17 @@
     "globals": "^16.5.0",
     "sass": "^1.94.1",
     "vite": "^7.2.2"
-  }
+  },
+  "description": "(module-4-project)",
+  "main": "eslint.config.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "keywords": [
+    "express",
+    "node",
+    "cors"
+  ],
+  "author": "",
+  "license": "ISC"
 }
