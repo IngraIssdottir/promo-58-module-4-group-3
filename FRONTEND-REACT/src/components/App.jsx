@@ -9,12 +9,12 @@ import Form from "./Create/Form.jsx";
 import { Routes, Route } from "react-router";
 import LandingPages from "./Layout/LandingPages.jsx";
 import CreateProjects from "./Layout/CreateProjects.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 //Aquí metemos un array de objetos, con los proyectos que metímos en nuestra BD
 //En el futuro, sólo habrá que volver a dejar un objeto vacío, para que los proyectos
 //Se rendericen desde nuestra BD, o eso creemos.
-const defaultPojects = [
+/*const defaultProjects = [
   {
     id: 1,
     name: "Bebés Feos del Medievo",
@@ -74,7 +74,7 @@ const defaultPojects = [
     photo:
       "https://m.media-amazon.com/images/S/amzn-author-media-prod/imff5o87ma0e3fjpij39j0a873._SY450_CR0%2C0%2C450%2C450_.jpg", // Imaagen del proyecto
   },
-];
+];*/
 
 function App() {
   //a pesar de que toda la funcionalidad la tienen en CreateProyects, no podemos
@@ -83,7 +83,18 @@ function App() {
   //App, que es la "madre" tanto de Landing como de CreateProyects. La ponemos en App
   //porque esa estructura es la que hará falta para cuando rendericemos desde la BD
   //si no, nos tocaría mover la funcionalidad de Landing a App, creemos
-  const [projectsLanding, setProjectsLanding] = useState(defaultPojects);
+  const [projectsLanding, setProjectsLanding] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/projects")
+      .then((response) => response.json())
+      .then((data) => {
+        setProjectsLanding(data);
+      })
+      .catch((error) => {
+        console.log("Error al cargar proyectos", error);
+      });
+  }, []);
 
   return (
     <div className="container">
