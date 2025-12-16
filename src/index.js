@@ -105,21 +105,12 @@ app.get('/api/projects', (req, res) => {
 
 });
 
-app.post('/api/project', (req, res) => {
+app.post('/api/projects', (req, res) => {
     console.log("POST /api/projects");
 
 
     console.log(req.body);
 
-    if (req.body.titulo === undefined || req.body.titulo === "") {
-    return res.status(400).json({ success: false, error: "Falta el titulo" });
-  }
-
-  if (req.body.descripcion === undefined || req.body.descripcion === "") {
-    return res
-      .status(400)
-      .json({ success: false, error: "Falta la descripción" });
-  }
 
   // Parece que los datos recibidos tienen título y descripción.
   // Almacenamos el objeto recibido en nuestro array de objetos:

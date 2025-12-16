@@ -47,7 +47,7 @@ function CreateProjects() {
   }
 
   const handleClick = () => {
-    fetch("https://dev.adalab.es/api/projectCard", {
+    fetch("http://localhost:3000/api/projects", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,10 +57,10 @@ function CreateProjects() {
       .then((res) => res.json())
       .then((responseData) => {
         if (responseData.success) {
-          const cardURL = responseData.cardURL;
-          setCardURL(cardURL);
-          setErrorMsg("");
-          console.log(cardURL);
+          //esto hace que al postear el proyecto, nos reenvíe a la landing
+          //y nos enseñe el proyecto posteado en la misma
+          //ese proyecto desaparecerá cuando reiniciemos el servidor
+          window.location.href = "/";
         } else {
           setErrorMsg(responseData.error);
           setCardURL("");
