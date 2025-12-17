@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // Importar la biblioteca de Express
 
 const express = require('express');
@@ -5,6 +7,10 @@ const express = require('express');
 // Importar la biblioteca de CORS
 
 const cors = require('cors');
+
+// Impportar biblioteca de mysql2
+
+const mysql = require("mysql2/promise");
 
 const path = require('node:path');
 
@@ -24,15 +30,59 @@ app.listen(port, () => {
   console.log(`Uh! El servidor ya está arrancado: <http://localhost:${port}/>`);
 });
 
+
+async function getConnection() {
+  const connection = await mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    database: "proyecto-module-4-group-3",
+    user: "root",
+    password: process.env.MYSQL_PASSWORD,
+  });
+  return connection;
+}
+
 // ENDPOINT 
 
 app.get('/', (req, res) => {
   res.send('Ok!');
 });
 
+app.get('/api/projects', async (req, res) => {
+  let connection;
+
+  try{
+    console.log('GET /api/projects');
+
+    connection = await getConnection();
+
+    let sql = `SELECT *
+				FROM projects
+				INNER JOIN author
+				ON projects.author_id = author.id;`;
+
+    const [results, fields] = await connection.query(sql);
+
+    res.json({
+      sucess: true,
+      projects: results,
+    });
+  } catch (error) {
+    console.error('Error en GET /api/project', error);
+    res.status(500).json({
+      success: false,
+      error: 'Error al obtener los proyectos',
+    });
+  } finally {
+    if(connetion) {
+      connection.end();
+    }
+  }
+
+});
 // Array de los objetos con los datos de los proyectos
 
-const data = [
+/*const data = [
   {
     id: 1,
     name: "Bebés Feos del Medievo",
@@ -103,9 +153,9 @@ app.get('/api/projects', (req, res) => {
     res.json(data);
 
 
-});
+});*/
 
-app.post('/api/projects', (req, res) => {
+/*app.post('/api/projects', (req, res) => {
     console.log("POST /api/projects");
 
 
@@ -122,8 +172,7 @@ app.post('/api/projects', (req, res) => {
   res.status(200).json({ success: true });
 
 
-});
-
+});*/
 
 // SERVIDOR DE FICHEROS DINÁMICOS
 

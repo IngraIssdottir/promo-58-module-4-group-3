@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 
 //le pasamos el estado por props
-function LandingPages({projectsLanding}) {
+function LandingPages({ projectsLanding = [] }) {
   //esta variable, y el useState de arriba en principio ya no son necesarios,
   //pero los dejo por si acaso.
   //const [projects, setProjects] = useState([{}, {}, {}, {}]);

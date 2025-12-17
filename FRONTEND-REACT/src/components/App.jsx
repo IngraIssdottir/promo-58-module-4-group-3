@@ -89,7 +89,7 @@ function App() {
     fetch("http://localhost:3000/api/projects")
       .then((response) => response.json())
       .then((data) => {
-        setProjectsLanding(data);
+        setProjectsLanding(data.projects);
       })
       .catch((error) => {
         console.log("Error al cargar proyectos", error);
