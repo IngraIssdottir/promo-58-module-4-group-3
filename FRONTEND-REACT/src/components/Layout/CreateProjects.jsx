@@ -74,7 +74,11 @@ function CreateProjects() {
 
   return (
     <main className="main">
-      <Hero></Hero>
+      <Hero>
+        <Link className="button--link" to="/">
+          Ver proyectos
+        </Link>
+      </Hero>
       <Preview data={data} />
       <Form
         changeData={changeData}
