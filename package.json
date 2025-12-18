@@ -4,9 +4,10 @@
   "description": "(backend projects)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "node --watch src/index.js"
+    "dev": "node --watch src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "rm -rf frontend-static ; cd FRONTEND-REACT ; npm run build ; mv dist ../frontend-static ; git add ../frontend-static ; git commit -m 'Add new version of React.' ; git push"
   },
   "keywords": [
     "express",
@@ -22,5 +23,4 @@
     "mysql2": "^3.16.0"
   },
   "type": "commonjs"
-
 }
