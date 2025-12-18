@@ -66,11 +66,11 @@ app.get('/api/projects', async (req, res) => {
     const [results, fields] = await connection.query(sql);
 
     res.json({
-      sucess: true,
+      success: true,
       projects: results,
     });
   } catch (error) {
-    console.error('Error en GET /api/project', error);
+    console.error('Error en GET /api/projects', error);
     res.status(500).json({
       success: false,
       error: 'Error al obtener los proyectos',
