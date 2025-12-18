@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 
 // Importar la biblioteca de Express
 
@@ -13,6 +13,8 @@ const cors = require('cors');
 const mysql = require("mysql2/promise");
 
 const path = require('node:path');
+
+require('dotenv').config();
 
 // Crear una variable con todo lo que puede hacer el servidor:
 
@@ -74,12 +76,60 @@ app.get('/api/projects', async (req, res) => {
       error: 'Error al obtener los proyectos',
     });
   } finally {
-    if(connetion) {
+    if(connection) {
       connection.end();
     }
   }
 
 });
+
+app.post('/api/projects', async (req, res) => {
+  console.log('POST /api/projects Body:', req.body);
+
+  const conn = await getConnection();
+
+  const insertAuthor =`
+    INSERT INTO author (author, job, photo)
+      VALUES (?, ?, ?);`;
+
+
+  const [resultInsertAuthor] = await conn.execute(insertAuthor, [req.body.autor, req.body.job, req.body.photo]);
+
+  const insertProject = `
+    INSERT INTO projects (name, \`desc\`, technologies, demo, repo, slogan, image, author_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+
+  const [resultInsertProject] = await conn.execute(insertProject, [
+    req.body.name,
+    req.body.desc,
+    req.body.technologies,
+    req.body.demo,
+    req.body.repo,
+    req.body.slogan,
+    req.body.image,
+    resultInsertAuthor.insertId
+  ]);
+
+  await conn.end();
+
+  res.json({
+    success: true,
+    projectsUrl: `http://localhost:3000/projects/${resultInsertProject.insertId}`
+  })
+
+});
+// SERVIDOR DE FICHEROS DINÁMICOS
+
+
+
+// SERVIDOR DE FICHEROS ESTÁTICOS
+
+app.use(express.static(path.join(__dirname, '..', 'FRONTEND-REACT', 'dist')));
+
+
+
+
+
 // Array de los objetos con los datos de los proyectos
 
 /*const data = [
@@ -173,11 +223,3 @@ app.get('/api/projects', (req, res) => {
 
 
 });*/
-
-// SERVIDOR DE FICHEROS DINÁMICOS
-
-
-
-// SERVIDOR DE FICHEROS ESTÁTICOS
-
-app.use(express.static(path.join(__dirname, '..', 'FRONTEND-REACT', 'dist')));
