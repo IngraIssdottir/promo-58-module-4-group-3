@@ -35,11 +35,11 @@ app.listen(port, () => {
 
 async function getConnection() {
   const connection = await mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    database: "proyecto-module-4-group-3",
-    user: "root",
-    password: process.env.MYSQL_PASSWORD,
+    host: process.env.AIVEN_HOST,
+    port: process.env.AIVEN_PORT,
+    database: process.env.AIVEN_DB,
+    user: process.env.AIVEN_USER,
+    password: process.env.AIVEN_PASSWORD,
   });
   return connection;
 }
