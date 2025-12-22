@@ -44,6 +44,7 @@ async function getConnection() {
   return connection;
 }
 
+
 // ENDPOINT 
 
 app.get('/', (req, res) => {
