@@ -6,6 +6,7 @@ import Footer from "./Layout/Footer.jsx";
 import Hero from "./Layout/Hero.jsx";
 import Preview from "./Create/Preview.jsx";
 import Form from "./Create/Form.jsx";
+import ProjectDetail from "./Layout/ProjectDetail.jsx";
 import { Routes, Route } from "react-router";
 import LandingPages from "./Layout/LandingPages.jsx";
 import CreateProjects from "./Layout/CreateProjects.jsx";
@@ -104,6 +105,7 @@ function App() {
           path="/"
           element={<LandingPages projectsLanding={projectsLanding} />}
         />
+        <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/create" element={<CreateProjects />} />
       </Routes>
       <Footer />

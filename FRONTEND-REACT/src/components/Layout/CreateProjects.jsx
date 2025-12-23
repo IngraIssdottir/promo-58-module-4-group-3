@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Hero from "../Layout/Hero.jsx";
 import Preview from "../Create/Preview.jsx";
 import Form from "../Create/Form.jsx";
+
 import { Link } from "react-router";
 
 const initialData = {
@@ -57,10 +58,8 @@ function CreateProjects() {
       .then((res) => res.json())
       .then((responseData) => {
         if (responseData.success) {
-          //esto hace que al postear el proyecto, nos reenvíe a la landing
-          //y nos enseñe el proyecto posteado en la misma
-          //ese proyecto desaparecerá cuando reiniciemos el servidor
-          window.location.href = "/";
+          setCardURL(responseData.cardURL);
+          setErrorMsg("");
         } else {
           setErrorMsg(responseData.error);
           setCardURL("");

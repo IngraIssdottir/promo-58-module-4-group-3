@@ -1,10 +1,14 @@
+import { Link } from "react-router";
+
 function Card({ data }) {
+
   const authorSrc = data.photo
     ? { backgroundImage: `url(${data.photo})` }
     : undefined;
 
   return (
     <article className="card">
+      
       <h2 className="card__projectTitle">
         <span className="card__projectTitle--text">Personal project card</span>
       </h2>
@@ -26,7 +30,9 @@ function Card({ data }) {
 
       <div className="card__project">
         <h3 className="card__name">
-          {data.name === "" ? "Proyect Tomasa" : data.name}
+          <Link to={`/projects/${data.id}`} className="card__title-link">
+            {data.name === "" ? "Proyect Tomasa" : data.name}
+          </Link>
         </h3>
         <p className="card__slogan">
           {data.slogan === "" ? "Los chistes de Tomasa" : data.slogan}
